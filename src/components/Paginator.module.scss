@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  justify-content: center;
+
+  .pages {
+    margin: 0 2rem;
+
+    > button:not(:last-child) {
+      margin-right: 0.5rem;
+    }
+    > span {
+      margin-right: 1rem;
+      margin-left: 0.5rem;
+    }
+  }
+}

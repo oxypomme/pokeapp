@@ -1,20 +1,34 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import InputControl from "@/components/InputControl";
+import Paginator from "@/components/Paginator";
+import useFetch from "@/hooks/useFetch";
 
 import { Pokemon } from "..";
-import pokemons from "../pokemons.json";
+// import pokemons from "../pokemons.json";
 import PokemonCard from "./PokemonCard";
 
 import classes from "./PokemonList.module.scss";
 
 const PokemonList = (): JSX.Element => {
-  const [filter, setFilter] = useState("");
+  const [search, setSearch] = useState("");
+  const [limit, setLimit] = useState(15);
+  const [page, setPage] = useState(5);
 
-  const isHidden = useCallback(
-    ({ name }: Pokemon) => !name.toLowerCase().includes(filter.toLowerCase()),
-    [filter]
+  const { data, error, isLoading } = useFetch<{
+    results: Pokemon[];
+    count: number;
+  }>(
+    `https://pokeapi.fly.dev/oxypomme1222/pokemons?limit=${limit}&offset=${
+      limit * (page - 1)
+    }&searchText=${search}`
   );
+
+  const maxPage = useMemo(
+    () => Math.round((data?.count ?? 0) / limit),
+    [data, limit]
+  );
+  const pokemons = useMemo(() => data?.results ?? [], [data]);
 
   return (
     <>
@@ -22,23 +36,21 @@ const PokemonList = (): JSX.Element => {
         label="Search"
         type="text"
         placeholder="Pikachu"
-        value={filter}
+        value={search}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setFilter(e.target.value)
+          setSearch(e.target.value.toLowerCase())
         }
       />
       <ul className={classes.list}>
         {(pokemons as Pokemon[]).map((pokemon) => (
-          <li
-            key={pokemon.id}
-            className={`${classes.element} ${
-              isHidden(pokemon) && classes.hidden
-            }`}
-          >
+          <li key={pokemon.id} className={classes.element}>
             <PokemonCard pokemon={pokemon} />
           </li>
         ))}
+        {isLoading ? <li>Loading...</li> : <></>}
+        {error ? <li>Error: {error.message}</li> : <></>}
       </ul>
+      <Paginator count={maxPage} current={page} onChange={(v) => setPage(v)} />
     </>
   );
 };
