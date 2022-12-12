@@ -13,12 +13,14 @@ import classes from "./PokemonList.module.scss";
 const PokemonList = (): JSX.Element => {
   const [search, setSearch] = useState("");
   const [limit, setLimit] = useState(15);
-  const [page, setPage] = useState(5);
+  const [page, setPage] = useState(1);
 
+  // TODO: Move that logic
   const { data, error, isLoading } = useFetch<{
     results: Pokemon[];
     count: number;
   }>(
+    // TODO: Debounce or throttle
     `https://pokeapi.fly.dev/oxypomme1222/pokemons?limit=${limit}&offset=${
       limit * (page - 1)
     }&searchText=${search}`
@@ -48,6 +50,7 @@ const PokemonList = (): JSX.Element => {
             <PokemonCard pokemon={pokemon} />
           </li>
         ))}
+        {/* TODO: Better loading screens */}
         {isLoading ? <li>Loading...</li> : <></>}
         {error ? <li>Error: {error.message}</li> : <></>}
       </ul>

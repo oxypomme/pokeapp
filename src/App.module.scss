@@ -1,4 +1,7 @@
 .nav {
   display: flex;
-  justify-content: space-between;
+
+  a:not(:first-of-type) {
+    margin-left: 2rem;
+  }
 }

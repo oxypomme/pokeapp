@@ -10,18 +10,22 @@ import classes from "./App.module.scss";
 function App() {
   return (
     <div>
-      <h1>PokeApp</h1>
-      <nav className={classes.nav}>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/pokemons/new">New pokemon</NavLink>
-      </nav>
+      <header style={{ marginBottom: "2rem" }}>
+        <h1>PokeApp</h1>
+        <nav className={classes.nav}>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/pokemons/new">New pokemon</NavLink>
+        </nav>
+      </header>
 
-      <Routes>
-        <Route path="/" element={<PokemonList />} />
-        <Route path="/pokemons" element={<PokemonList />} />
-        <Route path="/pokemons/new" element={<PokemonForm />} />
-        <Route path="/pokemons/:name" element={<PokemonDetailsPage />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<PokemonList />} />
+          <Route path="/pokemons" element={<PokemonList />} />
+          <Route path="/pokemons/new" element={<PokemonForm />} />
+          <Route path="/pokemons/:name" element={<PokemonDetailsPage />} />
+        </Routes>
+      </main>
     </div>
   );
 }

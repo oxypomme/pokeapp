@@ -26,6 +26,10 @@
     font-size: 0.75rem;
     list-style: none;
     padding: 0;
+
+    > li:not(:first-of-type) {
+      margin-left: 0.5em;
+    }
   }
 
   .detailBtn {

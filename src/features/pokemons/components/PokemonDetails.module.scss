@@ -38,12 +38,7 @@
 
     table {
       table-layout: fixed;
-
-      th,
-      td {
-        // TODO
-        min-width: 110px;
-      }
+      width: 100%;
     }
   }
 }

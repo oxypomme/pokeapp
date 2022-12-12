@@ -17,6 +17,7 @@ const PokemonDetailsPage = (): JSX.Element => {
   return (
     <>
       {data && <PokemonDetails pokemon={data} />}
+      {/* TODO: Better loading screens */}
       {isLoading && "Loading..."}
       {error && `Error: ${error.message}`}
     </>
