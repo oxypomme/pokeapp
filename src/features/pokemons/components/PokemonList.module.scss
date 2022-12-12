@@ -1,0 +1,19 @@
+.list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+  .element {
+    margin-top: 1rem;
+
+    &:not(:last-of-type) {
+      margin-right: 1rem;
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+}
