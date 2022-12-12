@@ -1,16 +1,20 @@
 .card {
   background: #00000000;
-  border: 1px solid #393939;
+  border: 1px solid #ffffff1f;
   border-radius: 1rem;
-  margin-right: 1rem;
   padding: 1rem;
   width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 1rem;
+
+  &:not(:last-of-type) {
+    margin-right: 1rem;
+  }
 
   &.hovered {
-    background: #0000001f;
+    background: #ffffff10;
   }
 
   .name {
