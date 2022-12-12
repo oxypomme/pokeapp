@@ -1,0 +1,14 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "eslint.format.enable": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.organizeImports": false
+  },
+  "explorer.fileNesting.patterns": {
+    "*.tsx": "$(capture).module.css, $(capture).module.scss, $(capture).ts, $(capture).*.tsx, $(capture)_*.ts, $(capture)_*.tsx",
+    "*.module.scss": "$(capture).module.scss.d.ts"
+  }
+  // "files.autoSave": "afterDelay",
+}

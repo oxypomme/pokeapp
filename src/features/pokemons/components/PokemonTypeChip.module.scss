@@ -1,0 +1,17 @@
+.chip {
+  text-transform: uppercase;
+  color: white;
+  border-radius: 1rem;
+  padding: 0.25em 0.5em;
+  margin-left: 0.5em;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  > img {
+    margin-right: 0.25em;
+  }
+}

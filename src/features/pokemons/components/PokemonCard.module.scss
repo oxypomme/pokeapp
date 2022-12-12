@@ -1,0 +1,31 @@
+.card {
+  background: #00000000;
+  border: 1px solid #393939;
+  border-radius: 1rem;
+  margin-right: 1rem;
+  padding: 1rem;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &.hovered {
+    background: #0000001f;
+  }
+
+  .name {
+    text-transform: capitalize;
+  }
+
+  .types {
+    display: flex;
+    justify-content: center;
+    font-size: 0.75rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .detailBtn {
+    margin-top: 1rem;
+  }
+}
