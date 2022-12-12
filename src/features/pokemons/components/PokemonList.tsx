@@ -41,6 +41,7 @@ const PokemonList = (): JSX.Element => {
           setSearch(e.target.value.toLowerCase())
         }
       />
+
       <ul className={classes.list}>
         {(pokemons as Pokemon[]).map((pokemon) => (
           <li key={pokemon.id} className={classes.element}>
@@ -50,6 +51,7 @@ const PokemonList = (): JSX.Element => {
         {isLoading ? <li>Loading...</li> : <></>}
         {error ? <li>Error: {error.message}</li> : <></>}
       </ul>
+
       <Paginator count={maxPage} current={page} onChange={(v) => setPage(v)} />
     </>
   );

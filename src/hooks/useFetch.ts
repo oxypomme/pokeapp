@@ -6,7 +6,7 @@ const useFetch = <D>(url: string) => {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    (async () => {
+    const handler = async () => {
       setIsLoading(true);
       try {
         const res = await fetch(url);
@@ -16,7 +16,8 @@ const useFetch = <D>(url: string) => {
         setError(error as Error);
       }
       setIsLoading(false);
-    })();
+    };
+    handler();
   }, [url]);
   return { data, isLoading, error };
 };

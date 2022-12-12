@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import classNames from "classnames";
 import PropTypes from "prop-types";
 
 import type { Pokemon } from "..";
-import PokemonType from "./PokemonTypeChip";
+import PokemonTypeChip from "./PokemonTypeChip";
 
 import classes from "./PokemonCard.module.scss";
 
@@ -15,11 +17,10 @@ type Props = {
 
 const PokemonCard = ({ pokemon }: Props): JSX.Element => {
   const [isHovered, setIsHovered] = useState(false);
-  const [counter, setCounter] = useState(0);
 
   return (
     <div
-      className={`${classes.card} ${isHovered && classes.hovered}`}
+      className={classNames(classes.card, { [classes.hovered]: isHovered })}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -28,16 +29,13 @@ const PokemonCard = ({ pokemon }: Props): JSX.Element => {
       <ul className={classes.types}>
         {pokemon.types.map((type) => (
           <li key={type}>
-            <PokemonType type={type} />
+            <PokemonTypeChip type={type} />
           </li>
         ))}
       </ul>
-      <button
-        className={classes.detailBtn}
-        onClick={() => setCounter((c) => c + 1)}
-      >
-        Details ({counter})
-      </button>
+      <Link to={`/pokemons/${pokemon.name}`} className={classes.detailBtn}>
+        <button>Details</button>
+      </Link>
     </div>
   );
 };

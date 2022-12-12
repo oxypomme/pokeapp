@@ -1,20 +1,27 @@
-import { useState } from "react";
-import classnames from "classnames";
+import { NavLink, Route, Routes } from "react-router-dom";
 
-import reactLogo from "./assets/react.svg";
 import PokemonForm from "./features/pokemons/components/PokemonForm";
 import PokemonList from "./features/pokemons/components/PokemonList";
+import PokemonDetailsPage from "./routes/PokemonDetailsPage";
 
 import "./globals.scss";
-// import styles from "./App.module.scss";
+import classes from "./App.module.scss";
 
 function App() {
   return (
     <div>
       <h1>PokeApp</h1>
-      <p>List of pokemons</p>
-      <PokemonList />
-      <PokemonForm />
+      <nav className={classes.nav}>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/pokemons/new">New pokemon</NavLink>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<PokemonList />} />
+        <Route path="/pokemons" element={<PokemonList />} />
+        <Route path="/pokemons/new" element={<PokemonForm />} />
+        <Route path="/pokemons/:name" element={<PokemonDetailsPage />} />
+      </Routes>
     </div>
   );
 }
