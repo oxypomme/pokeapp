@@ -5,6 +5,7 @@ import PokemonCapturedPage from "./routes/PokemonCapturedPage";
 import PokemonCreationPage from "./routes/PokemonCreationPage";
 import PokemonDetailsPage from "./routes/PokemonDetailsPage";
 import PokemonListPage from "./routes/PokemonListPage";
+import logo from "../public/pokeball.svg";
 
 import "./globals.scss";
 import classes from "./App.module.scss";
@@ -12,8 +13,11 @@ import classes from "./App.module.scss";
 function App() {
   return (
     <div>
-      <header style={{ marginBottom: "2rem" }}>
-        <h1>PokeApp</h1>
+      <header className={classes.header}>
+        <div>
+          <img src={logo} alt="logo" height={64} />
+          <h1>PokeApp</h1>
+        </div>
         <nav className={classes.nav}>
           <NavLink to="/">Home</NavLink>
           <NavLink to="/pokemons">

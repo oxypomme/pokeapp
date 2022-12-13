@@ -1,7 +1,22 @@
-.nav {
-  display: flex;
+.header {
+  margin: 2rem 0;
 
-  a:not(:first-of-type) {
-    margin-left: 2rem;
+  .nav {
+    display: flex;
+    margin-top: 0.5rem;
+
+    a:not(:first-of-type) {
+      margin-left: 2rem;
+    }
+  }
+
+  > div {
+    display: flex;
+    align-items: center;
+  }
+
+  h1 {
+    margin: 0;
+    margin-left: 0.5rem;
   }
 }
