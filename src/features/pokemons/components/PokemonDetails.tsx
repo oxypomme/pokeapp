@@ -33,22 +33,16 @@ const PokemonDetails = ({ pokemon }: Props): JSX.Element => {
         <table>
           <thead>
             <tr>
-              <th>HP</th>
-              <th>Attack</th>
-              <th>Defense</th>
-              <th>Special Attack</th>
-              <th>Special Defense</th>
-              <th>Speed</th>
+              {Object.keys(pokemon.stats).map((key) => (
+                <th key={key}>{key.replace(/-/g, " ")}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>{pokemon.stats.hp}</td>
-              <td>{pokemon.stats.attack}</td>
-              <td>{pokemon.stats.defense}</td>
-              <td>{pokemon.stats["special-attack"]}</td>
-              <td>{pokemon.stats["special-defense"]}</td>
-              <td>{pokemon.stats.speed}</td>
+              {Object.entries(pokemon.stats).map(([key, value]) => (
+                <td key={key}>{value}</td>
+              ))}
             </tr>
           </tbody>
         </table>

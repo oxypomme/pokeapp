@@ -26,16 +26,15 @@ const Paginator = ({ current, count, onChange }: Props): JSX.Element => {
       ) {
         res.push(
           <button
-            key={"_" + i}
+            key={i}
             style={{ color: i + 1 === current ? "#007DFF" : undefined }}
             onClick={() => safeOnChange(i + 1)}
           >
             {i + 1}
           </button>
         );
-      }
-      if (i === current - 4 || i === current + 2) {
-        res.push(<span>...</span>);
+      } else if (i === current - 4 || i === current + 2) {
+        res.push(<span key={i}>...</span>);
       }
     }
 

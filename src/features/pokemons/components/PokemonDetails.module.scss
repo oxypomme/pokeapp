@@ -39,6 +39,10 @@
     table {
       table-layout: fixed;
       width: 100%;
+
+      th {
+        text-transform: capitalize;
+      }
     }
   }
 }

@@ -7,6 +7,7 @@ import useFetch from "@/hooks/useFetch";
 import { Pokemon } from "..";
 // import pokemons from "../pokemons.json";
 import PokemonCard from "./PokemonCard";
+import PokemonCardLoading from "./PokemonCardLoading";
 
 import classes from "./PokemonList.module.scss";
 
@@ -30,7 +31,6 @@ const PokemonList = (): JSX.Element => {
     () => Math.round((data?.count ?? 0) / limit),
     [data, limit]
   );
-  const pokemons = useMemo(() => data?.results ?? [], [data]);
 
   return (
     <>
@@ -45,14 +45,26 @@ const PokemonList = (): JSX.Element => {
       />
 
       <ul className={classes.list}>
-        {(pokemons as Pokemon[]).map((pokemon) => (
-          <li key={pokemon.id} className={classes.element}>
-            <PokemonCard pokemon={pokemon} />
+        {/* Pokemon List */}
+        {data?.results &&
+          (data.results as Pokemon[]).map((pokemon) => (
+            <li key={pokemon.id} className={classes.element}>
+              <PokemonCard pokemon={pokemon} />
+            </li>
+          ))}
+        {/* Loading state */}
+        {isLoading &&
+          new Array(limit).fill(0).map((_, i) => (
+            <li key={i} className={classes.element}>
+              <PokemonCardLoading />
+            </li>
+          ))}
+        {/* Error state */}
+        {error && (
+          <li>
+            Error: <span style={{ color: "red" }}>{error.message}</span>
           </li>
-        ))}
-        {/* TODO: Better loading screens */}
-        {isLoading ? <li>Loading...</li> : <></>}
-        {error ? <li>Error: {error.message}</li> : <></>}
+        )}
       </ul>
 
       <Paginator count={maxPage} current={page} onChange={(v) => setPage(v)} />

@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 
 import PokemonDetails from "@/features/pokemons/components/PokemonDetails";
+import PokemonDetailsLoading from "@/features/pokemons/components/PokemonDetailsLoading";
 import useFetch from "@/hooks/useFetch";
 
 import type { Pokemon } from "../features/pokemons";
@@ -17,8 +18,7 @@ const PokemonDetailsPage = (): JSX.Element => {
   return (
     <>
       {data && <PokemonDetails pokemon={data} />}
-      {/* TODO: Better loading screens */}
-      {isLoading && "Loading..."}
+      {isLoading && <PokemonDetailsLoading />}
       {error && `Error: ${error.message}`}
     </>
   );

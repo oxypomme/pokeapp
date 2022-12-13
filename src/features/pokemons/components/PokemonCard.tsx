@@ -24,7 +24,7 @@ const PokemonCard = ({ pokemon }: Props): JSX.Element => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img src={pokemon.image} alt={pokemon.name} />
+      <img src={pokemon.image} alt={pokemon.name} className={classes.img} />
       <div className={classes.name}>{pokemon.name}</div>
       <ul className={classes.types}>
         {pokemon.types.map((type) => (
