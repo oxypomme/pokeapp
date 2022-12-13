@@ -1,8 +1,8 @@
 import { NavLink, Route, Routes } from "react-router-dom";
 
-import PokemonForm from "./features/pokemons/components/PokemonForm";
-import PokemonList from "./features/pokemons/components/PokemonList";
+import PokemonCreationPage from "./routes/PokemonCreationPage";
 import PokemonDetailsPage from "./routes/PokemonDetailsPage";
+import PokemonListPage from "./routes/PokemonListPage";
 
 import "./globals.scss";
 import classes from "./App.module.scss";
@@ -20,9 +20,9 @@ function App() {
 
       <main>
         <Routes>
-          <Route path="/" element={<PokemonList />} />
-          <Route path="/pokemons" element={<PokemonList />} />
-          <Route path="/pokemons/new" element={<PokemonForm />} />
+          <Route path="/" element={<PokemonListPage />} />
+          <Route path="/pokemons" element={<PokemonListPage />} />
+          <Route path="/pokemons/new" element={<PokemonCreationPage />} />
           <Route path="/pokemons/:name" element={<PokemonDetailsPage />} />
         </Routes>
       </main>
