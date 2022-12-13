@@ -4,11 +4,11 @@ import { NavLink, Route, Routes } from "react-router-dom";
 import logo from "/pokeball.svg";
 
 import PokemonCollectionCount from "./features/pokemons/components/PokemonCollectionCount";
+import PokemonCapturedPage from "./features/pokemons/routes/PokemonCapturedPage";
+import PokemonCreationPage from "./features/pokemons/routes/PokemonCreationPage";
+import PokemonDetailsPage from "./features/pokemons/routes/PokemonDetailsPage";
+import PokemonListPage from "./features/pokemons/routes/PokemonListPage";
 import { useThemeContext } from "./features/themes/ThemeContext";
-import PokemonCapturedPage from "./routes/PokemonCapturedPage";
-import PokemonCreationPage from "./routes/PokemonCreationPage";
-import PokemonDetailsPage from "./routes/PokemonDetailsPage";
-import PokemonListPage from "./routes/PokemonListPage";
 
 import classes from "./App.module.scss";
 
