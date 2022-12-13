@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
 
 import classes from "./Paginator.module.scss";
 
@@ -48,6 +49,11 @@ const Paginator = ({ current, count, onChange }: Props): JSX.Element => {
       <button onClick={() => safeOnChange(current + 1)}> {">"} </button>
     </div>
   );
+};
+Paginator.propTypes = {
+  current: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Paginator;

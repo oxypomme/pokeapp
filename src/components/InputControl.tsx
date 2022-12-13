@@ -8,16 +8,16 @@ type Props = {
 
 const RequiredStar = (): JSX.Element => <span style={{ color: "red" }}>*</span>;
 
-const InputControl = ({ label, ...inputProps }: Props): JSX.Element => {
-  const name = useMemo(() => label.toLowerCase(), [label]);
+const InputControl = ({ label, id, ...inputProps }: Props): JSX.Element => {
+  const inputId = useMemo(() => id ?? label.toLowerCase(), [id, label]);
 
   return (
     <div className={classes.container}>
-      <label htmlFor={name}>
-        {label}
+      <span>
+        <label htmlFor={inputId}>{label}</label>
         {inputProps.required && <RequiredStar />}
-      </label>
-      <input name={name} {...inputProps} />
+      </span>
+      <input id={inputId} {...inputProps} />
     </div>
   );
 };

@@ -1,19 +1,16 @@
-import { BrowserRouter } from "react-router-dom";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import type { Pokemon } from "..";
 import pokemons from "../pokemons.json";
-import PokemonCard from "./PokemonCard";
+import PokemonDetails from "./PokemonDetails";
 
 export default {
-  title: "Pokemons/PokemonCard",
-  component: PokemonCard,
-} as ComponentMeta<typeof PokemonCard>;
+  title: "Pokemons/PokemonDetails",
+  component: PokemonDetails,
+} as ComponentMeta<typeof PokemonDetails>;
 
-const Template: ComponentStory<typeof PokemonCard> = (args) => (
-  <BrowserRouter>
-    <PokemonCard {...args} />
-  </BrowserRouter>
+const Template: ComponentStory<typeof PokemonDetails> = (args) => (
+  <PokemonDetails {...args} />
 );
 
 export const Pikachu = Template.bind({});

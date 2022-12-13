@@ -1,10 +1,22 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import PropTypes from "prop-types";
 
 import InputControl from "@/components/InputControl";
 
 import classes from "./PokemonForm.module.scss";
 
-const PokemonForm = (): JSX.Element => {
+type Payload = {
+  name: string;
+  type: string;
+  height?: number;
+  weight?: number;
+};
+
+type Props = {
+  onSubmit(payload: Payload): void;
+};
+
+const PokemonForm = ({ onSubmit }: Props): JSX.Element => {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [height, setHeight] = useState(0);
@@ -12,9 +24,9 @@ const PokemonForm = (): JSX.Element => {
 
   const isValid = useMemo(() => name && type, [name, type]);
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onBaseSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log({
+    onSubmit({
       name,
       type,
       height,
@@ -23,7 +35,7 @@ const PokemonForm = (): JSX.Element => {
   };
 
   return (
-    <form className={classes.form} onSubmit={onSubmit}>
+    <form className={classes.form} onSubmit={onBaseSubmit}>
       <InputControl
         required
         label="Name"
@@ -63,6 +75,9 @@ const PokemonForm = (): JSX.Element => {
       <button disabled={!isValid}>Create</button>
     </form>
   );
+};
+PokemonForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default PokemonForm;
