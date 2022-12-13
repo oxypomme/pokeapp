@@ -12,8 +12,6 @@ const PokemonDetailsLoading = (): JSX.Element => {
         <div className={classes.info}>
           <div className={classes.name}>Loading</div>
           <div className={classes.types}>...</div>
-          {/* <div>{format(pokemon.weight * 0.1)} kg</div> */}
-          {/* <div>{format(pokemon.height * 0.1)} m</div> */}
         </div>
       </div>
       <div className={classes.footer}></div>

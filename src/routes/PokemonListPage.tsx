@@ -4,12 +4,14 @@ import InputControl from "@/components/InputControl";
 import Paginator from "@/components/Paginator";
 import type { Pokemon } from "@/features/pokemons";
 import PokemonList from "@/features/pokemons/components/PokemonList";
+import PokemonTable from "@/features/pokemons/components/PokemonTable";
 import useFetch from "@/hooks/useFetch";
 
 const PokemonCreationPage = (): JSX.Element => {
   const [search, setSearch] = useState("");
   const [limit, setLimit] = useState(15);
   const [page, setPage] = useState(1);
+  const [dataView, setDataView] = useState<"table" | "grid">("grid");
 
   const { data, error, isLoading } = useFetch<{
     results: Pokemon[];
@@ -30,23 +32,52 @@ const PokemonCreationPage = (): JSX.Element => {
     [data, limit]
   );
 
+  const dataParams = useMemo(
+    () => ({
+      pokemons: !isLoading ? (data?.results as Pokemon[]) : [],
+      loadingItems: isLoading ? limit : undefined,
+    }),
+    [data?.results, isLoading, limit]
+  );
+
+  const handleDataViewChange = () => {
+    if (dataView === "table") {
+      setDataView("grid");
+    } else {
+      setDataView("table");
+    }
+  };
+
   return (
     <>
-      <InputControl
-        label="Search"
-        type="text"
-        placeholder="Pikachu"
-        value={search}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setSearch(e.target.value.toLowerCase())
-        }
-      />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ flex: 1, marginRight: "1rem" }}>
+          <InputControl
+            label="Search"
+            type="text"
+            placeholder="Pikachu"
+            value={search}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.target.value.toLowerCase())
+            }
+          />
+        </div>
+        <button
+          style={{ textTransform: "capitalize" }}
+          onClick={() => handleDataViewChange()}
+        >
+          {dataView}
+        </button>
+      </div>
 
       {!error ? (
-        <PokemonList
-          pokemons={!isLoading ? (data?.results as Pokemon[]) : []}
-          loadingItems={isLoading ? limit : undefined}
-        />
+        (dataView === "grid" && <PokemonList {...dataParams} />) ||
+        (dataView === "table" && <PokemonTable {...dataParams} />)
       ) : (
         <>
           Error: <span style={{ color: "red" }}>{error.message}</span>

@@ -1,0 +1,51 @@
+.row {
+  &:nth-child(2n + 1) {
+    background: var(--elevation-1);
+  }
+
+  .name {
+    text-transform: capitalize;
+  }
+
+  .types {
+    display: flex;
+    justify-content: center;
+    font-size: 0.75rem;
+    list-style: none;
+    padding: 0;
+    min-height: 30px;
+
+    > li:not(:first-of-type) {
+      margin-left: 0.5em;
+    }
+  }
+
+  .actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    .captureBtn {
+      width: 100px;
+    }
+  }
+
+  &:hover {
+    background: var(--elevation-2);
+    transition: background-color 0.25s;
+  }
+
+  &.captured {
+    .captureBtn {
+      color: white;
+      background-color: #e72324;
+      border-color: #e72324;
+
+      &:not(:disabled):active {
+        color: #e72324;
+        background-color: transparent;
+        border-color: #e72324;
+      }
+    }
+  }
+}
