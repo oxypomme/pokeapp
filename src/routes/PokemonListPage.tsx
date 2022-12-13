@@ -16,9 +16,8 @@ const PokemonCreationPage = (): JSX.Element => {
     count: number;
   }>(
     // TODO: Debounce or throttle
-    `https://pokeapi.fly.dev/oxypomme1222/pokemons?limit=${limit}&offset=${
-      limit * (page - 1)
-    }&searchText=${search}`
+    `https://pokeapi.fly.dev/oxypomme1222/pokemons`,
+    { limit, offset: limit * (page - 1), searchText: search }
   );
 
   // Clear page if searching or changing limit
