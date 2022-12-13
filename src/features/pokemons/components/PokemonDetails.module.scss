@@ -1,13 +1,12 @@
 .container {
   display: flex;
   flex-direction: column;
-  border: 1px solid #ffffff1f;
-  border-radius: 1rem;
-  box-shadow: 5px 5px 3px #00000010;
+  border-radius: 0.5rem;
+  background: var(--elevation-1);
 
   .body {
     display: flex;
-    border-bottom: 1px solid #ffffff1f;
+    border-bottom: 1px solid var(--elevation-6);
 
     .image {
       padding: 1rem;
@@ -56,7 +55,9 @@
 
   &.captured {
     .captureBtn {
-      background: rgb(200, 0, 0);
+      color: white;
+      background-color: #e72324;
+      border-color: #e72324;
     }
   }
 }

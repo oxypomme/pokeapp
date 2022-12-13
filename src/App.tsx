@@ -1,18 +1,30 @@
 import { NavLink, Route, Routes } from "react-router-dom";
 
+// eslint-disable-next-line import/no-unresolved
+import logo from "/pokeball.svg";
+
 import PokemonCollectionCount from "./features/pokemons/components/PokemonCollectionCount";
+import { useThemeContext } from "./features/themes/ThemeContext";
 import PokemonCapturedPage from "./routes/PokemonCapturedPage";
 import PokemonCreationPage from "./routes/PokemonCreationPage";
 import PokemonDetailsPage from "./routes/PokemonDetailsPage";
 import PokemonListPage from "./routes/PokemonListPage";
-import logo from "../public/pokeball.svg";
 
-import "./globals.scss";
 import classes from "./App.module.scss";
 
 function App() {
+  const { setTheme, current: currentTheme } = useThemeContext();
+
+  const handlerTheme = () => {
+    if (currentTheme === "dark") {
+      setTheme("light");
+    } else {
+      setTheme("dark");
+    }
+  };
+
   return (
-    <div>
+    <div className={classes.appRoot}>
       <header className={classes.header}>
         <div>
           <img src={logo} alt="logo" height={64} />
@@ -24,6 +36,7 @@ function App() {
             Collection (<PokemonCollectionCount />)
           </NavLink>
           <NavLink to="/pokemons/new">New pokemon</NavLink>
+          <button onClick={handlerTheme}>{currentTheme}</button>
         </nav>
       </header>
 

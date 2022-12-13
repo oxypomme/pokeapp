@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import classNames from "classnames";
 import PropTypes from "prop-types";
 
 import classes from "./Paginator.module.scss";
@@ -10,6 +11,8 @@ type Props = React.PropsWithoutRef<{
 }>;
 
 const Paginator = ({ current, count, onChange }: Props): JSX.Element => {
+  const isMin = useMemo(() => current === 1, [current]);
+  const isMax = useMemo(() => current === count, [current, count]);
   const safeOnChange = useCallback(
     (value: number) =>
       value > 0 && value <= count ? onChange(value) : undefined,
@@ -28,7 +31,7 @@ const Paginator = ({ current, count, onChange }: Props): JSX.Element => {
         res.push(
           <button
             key={i}
-            style={{ color: i + 1 === current ? "#007DFF" : undefined }}
+            className={classNames({ [classes.current]: i + 1 === current })}
             onClick={() => safeOnChange(i + 1)}
           >
             {i + 1}
@@ -44,9 +47,13 @@ const Paginator = ({ current, count, onChange }: Props): JSX.Element => {
 
   return (
     <div className={classes.container}>
-      <button onClick={() => safeOnChange(current - 1)}> {"<"} </button>
+      <button disabled={isMin} onClick={() => safeOnChange(current - 1)}>
+        {"<"}
+      </button>
       <div className={classes.pages}>{buttons}</div>
-      <button onClick={() => safeOnChange(current + 1)}> {">"} </button>
+      <button disabled={isMax} onClick={() => safeOnChange(current + 1)}>
+        {">"}
+      </button>
     </div>
   );
 };

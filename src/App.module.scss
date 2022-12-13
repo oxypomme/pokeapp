@@ -1,12 +1,30 @@
+body {
+  margin: 0;
+  // TODO
+  margin-top: -2rem;
+}
+
+.appRoot {
+  margin: 0 auto;
+  max-width: 1280px;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
 .header {
   margin: 2rem 0;
 
   .nav {
     display: flex;
+    align-items: center;
     margin-top: 0.5rem;
 
     a:not(:first-of-type) {
       margin-left: 2rem;
+    }
+
+    > button:last-child {
+      margin-left: auto;
     }
   }
 

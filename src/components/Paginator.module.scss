@@ -5,6 +5,11 @@
   .pages {
     margin: 0 2rem;
 
+    .current {
+      background-color: var(--accent);
+      color: var(--accent-text);
+    }
+
     > button:not(:last-child) {
       margin-right: 0.5rem;
     }

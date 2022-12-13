@@ -5,6 +5,7 @@
   padding: 0.25em 0.5em;
   display: flex;
   align-items: center;
+  transition: opacity 0.25s;
 
   &:not(:first-of-type) {
     margin-left: 0.5em;

@@ -1,12 +1,10 @@
 .card {
-  background: #00000000;
-  border: 1px solid #ffffff1f;
-  border-radius: 1rem;
+  background: var(--elevation-1);
+  border-radius: 0.5rem;
   padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 5px 5px 3px #00000010;
 
   .img {
     height: 96px;
@@ -41,12 +39,21 @@
   }
 
   &:hover {
-    background: #ffffff10;
+    background: var(--elevation-2);
+    transition: background-color 0.25s;
   }
 
   &.captured {
     .captureBtn {
-      background: rgb(200, 0, 0);
+      color: white;
+      background-color: #e72324;
+      border-color: #e72324;
+
+      &:not(:disabled):active {
+        color: #e72324;
+        background-color: transparent;
+        border-color: #e72324;
+      }
     }
   }
 }

@@ -1,0 +1,19 @@
+{
+  "background": "#fff",
+  "accent": "#007DFF",
+  "accent-1": "#6EABFF",
+  "accent-text": "#fff",
+  "text": "#212121",
+  "text-disabled": "#d9d9d9",
+  "elevation": {
+    "1": "#f3f3f3",
+    "2": "#dfdfdf",
+    "3": "#cacaca",
+    "4": "#ebebeb",
+    "5": "#e9e9e9",
+    "6": "#e3e3e3",
+    "7": "#e1e1e1",
+    "8": "#dcdcdc",
+    "9": "#d9d9d9"
+  }
+}

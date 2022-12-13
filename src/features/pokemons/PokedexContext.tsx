@@ -6,7 +6,7 @@ type PokedexProviderValue = {
   addPokemon: (id: Pokemon["id"]) => void;
   removePokemon: (id: Pokemon["id"]) => void;
   isPokemon: (id: Pokemon["id"]) => boolean;
-  pokemonIds: Pokemon["id"][];
+  readonly pokemonIds: Pokemon["id"][];
 };
 type ProviderProps = React.PropsWithChildren;
 
@@ -18,7 +18,9 @@ export const PokedexProvider = ({ children }: ProviderProps) => {
   const [pokemonIds, setPokemonIds] = useState<Pokemon["id"][]>([]);
 
   const contextValue: PokedexProviderValue = {
-    pokemonIds,
+    get pokemonIds() {
+      return pokemonIds;
+    },
 
     addPokemon: (id) => {
       setPokemonIds([...pokemonIds, id]);
@@ -43,6 +45,8 @@ export const PokedexProvider = ({ children }: ProviderProps) => {
 export const usePokedexContext = () => {
   const context = useContext(PokedexContext);
   if (!context)
-    throw new Error("usePokedex must be called within a PokedexProvider");
+    throw new Error(
+      "usePokedexContext must be called within a PokedexProvider"
+    );
   return context;
 };

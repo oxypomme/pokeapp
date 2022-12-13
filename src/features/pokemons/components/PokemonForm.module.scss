@@ -1,6 +1,20 @@
 .form {
-  border: 1px solid #ffffff1f;
+  background: var(--elevation-1);
   padding: 1rem;
-  border-radius: 1rem;
-  box-shadow: 5px 5px 3px #00000010;
+  border-radius: 0.5rem;
+
+  input {
+    background: var(--background);
+  }
+
+  button {
+    color: #3da224;
+    border-color: #3da224;
+
+    &:not(:disabled):active {
+      color: white;
+      background-color: #3da224;
+      border-color: #3da224;
+    }
+  }
 }
