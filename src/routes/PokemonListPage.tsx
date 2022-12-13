@@ -44,7 +44,7 @@ const PokemonCreationPage = (): JSX.Element => {
 
       {!error ? (
         <PokemonList
-          pokemons={data?.results as Pokemon[]}
+          pokemons={!isLoading ? (data?.results as Pokemon[]) : []}
           loadingItems={isLoading ? limit : undefined}
         />
       ) : (

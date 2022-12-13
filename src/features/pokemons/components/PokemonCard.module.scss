@@ -3,14 +3,9 @@
   border: 1px solid #ffffff1f;
   border-radius: 1rem;
   padding: 1rem;
-  width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  &.hovered {
-    background: #ffffff10;
-  }
 
   .img {
     height: 96px;
@@ -33,7 +28,24 @@
     }
   }
 
-  .detailBtn {
+  .actions {
     margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    .captureBtn {
+      width: 100px;
+    }
+  }
+
+  &:hover {
+    background: #ffffff10;
+  }
+
+  &.captured {
+    .captureBtn {
+      background: rgb(200, 0, 0);
+    }
   }
 }

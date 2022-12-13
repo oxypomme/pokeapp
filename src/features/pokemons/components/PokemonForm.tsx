@@ -12,9 +12,9 @@ type Payload = {
   weight?: number;
 };
 
-type Props = {
+type Props = React.PropsWithoutRef<{
   onSubmit(payload: Payload): void;
-};
+}>;
 
 const PokemonForm = ({ onSubmit }: Props): JSX.Element => {
   const [name, setName] = useState("");

@@ -1,22 +1,35 @@
+import classNames from "classnames";
 import PropTypes from "prop-types";
 
 import type { Pokemon } from "..";
+import usePokemonCapture from "../hooks/usePokemonCapture";
+import PokemonCaptureButton from "./PokemonCaptureButton";
 import PokemonTypeChip from "./PokemonTypeChip";
 
 import classes from "./PokemonDetails.module.scss";
 
-type Props = {
+type Props = React.PropsWithoutRef<{
   pokemon: Pokemon;
-};
+}>;
 
 const PokemonDetails = ({ pokemon }: Props): JSX.Element => {
   const format = (value: number) => value.toFixed(2);
 
+  const { isCaptured } = usePokemonCapture(pokemon);
+
   return (
-    <div className={classes.container}>
+    <div
+      className={classNames(classes.container, {
+        [classes.captured]: isCaptured,
+      })}
+    >
       <div className={classes.body}>
         <div className={classes.image}>
           <img src={pokemon.image} alt={pokemon.name} />
+          <PokemonCaptureButton
+            pokemon={pokemon}
+            className={classes.captureBtn}
+          />
         </div>
         <div className={classes.info}>
           <div className={classes.name}>{pokemon.name}</div>

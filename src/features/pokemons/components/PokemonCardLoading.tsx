@@ -18,9 +18,10 @@ const PokemonCardLoading = (): JSX.Element => {
       <ul className={classes.types}>
         <li>...</li>
       </ul>
-      <button disabled className={classes.detailBtn}>
-        Details
-      </button>
+      <div className={classes.actions}>
+        <button disabled>Details</button>
+        <button disabled>Capture</button>
+      </div>
     </div>
   );
 };

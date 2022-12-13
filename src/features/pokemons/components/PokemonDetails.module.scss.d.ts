@@ -5,3 +5,5 @@ export const info: string;
 export const name: string;
 export const types: string;
 export const footer: string;
+export const captured: string;
+export const captureBtn: string;

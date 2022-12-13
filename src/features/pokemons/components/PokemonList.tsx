@@ -4,10 +4,10 @@ import PokemonCardLoading from "./PokemonCardLoading";
 
 import classes from "./PokemonList.module.scss";
 
-type Props = {
+type Props = React.PropsWithoutRef<{
   pokemons?: Pokemon[];
   loadingItems?: number;
-};
+}>;
 
 const PokemonList = ({ pokemons, loadingItems }: Props): JSX.Element => {
   return (
@@ -15,14 +15,14 @@ const PokemonList = ({ pokemons, loadingItems }: Props): JSX.Element => {
       {/* Pokemon List */}
       {pokemons &&
         pokemons.map((pokemon) => (
-          <li key={pokemon.id} className={classes.element}>
+          <li key={pokemon.id}>
             <PokemonCard pokemon={pokemon} />
           </li>
         ))}
       {/* Loading state */}
       {loadingItems &&
         new Array(loadingItems).fill(0).map((_, i) => (
-          <li key={i} className={classes.element}>
+          <li key={i}>
             <PokemonCardLoading />
           </li>
         ))}

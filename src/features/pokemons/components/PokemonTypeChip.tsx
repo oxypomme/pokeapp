@@ -5,9 +5,9 @@ import type { PokemonType } from "..";
 
 import classes from "./PokemonTypeChip.module.scss";
 
-type Props = {
+type Props = React.PropsWithoutRef<{
   type: PokemonType;
-};
+}>;
 
 const PokemonTypeChip = ({ type }: Props) => {
   const color = useMemo(() => {

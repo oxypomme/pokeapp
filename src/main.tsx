@@ -4,12 +4,15 @@ import { BrowserRouter } from "react-router-dom";
 
 import "./index.css";
 
+import { PokedexProvider } from "./features/pokemons/PokedexContext";
 import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <PokedexProvider>
+        <App />
+      </PokedexProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

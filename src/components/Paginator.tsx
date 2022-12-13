@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 
 import classes from "./Paginator.module.scss";
 
-type Props = {
+type Props = React.PropsWithoutRef<{
   current: number;
   count: number;
   onChange: (value: number) => void;
-};
+}>;
 
 const Paginator = ({ current, count, onChange }: Props): JSX.Element => {
   const safeOnChange = useCallback(
