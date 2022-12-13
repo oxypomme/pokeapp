@@ -1,6 +1,7 @@
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import type { Pokemon } from "..";
+import { PokedexProvider } from "../PokedexContext";
 import pokemons from "../pokemons.json";
 import PokemonDetails from "./PokemonDetails";
 
@@ -10,7 +11,9 @@ export default {
 } as ComponentMeta<typeof PokemonDetails>;
 
 const Template: ComponentStory<typeof PokemonDetails> = (args) => (
-  <PokemonDetails {...args} />
+  <PokedexProvider>
+    <PokemonDetails {...args} />
+  </PokedexProvider>
 );
 
 export const Pikachu = Template.bind({});

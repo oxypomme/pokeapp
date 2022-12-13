@@ -2,6 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import type { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import type { Pokemon } from "..";
+import { PokedexProvider } from "../PokedexContext";
 import pokemons from "../pokemons.json";
 import PokemonList from "./PokemonList";
 
@@ -12,7 +13,9 @@ export default {
 
 const Template: ComponentStory<typeof PokemonList> = (args) => (
   <BrowserRouter>
-    <PokemonList {...args} />
+    <PokedexProvider>
+      <PokemonList {...args} />
+    </PokedexProvider>
   </BrowserRouter>
 );
 
