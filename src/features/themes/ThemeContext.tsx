@@ -15,11 +15,29 @@ type ThemeProviderValue = {
 };
 type ProviderProps = React.PropsWithChildren<{
   defaultTheme?: Themes;
+  onlyVars?: boolean;
 }>;
 
 export const ThemeContext = createContext<ThemeProviderValue | undefined>(
   undefined
 );
+
+const parseCSSVars = (obj: object, keyPrefix = "--") => {
+  let res: Record<string, string> = {};
+
+  for (const [key, value] of Object.entries(obj)) {
+    if (typeof value === "object") {
+      res = {
+        ...res,
+        ...parseCSSVars(value, keyPrefix + key + "-"),
+      };
+    } else {
+      res[keyPrefix + key] = value;
+    }
+  }
+
+  return res;
+};
 
 export const ThemeProvider = ({
   children,
@@ -43,22 +61,10 @@ export const ThemeProvider = ({
     },
   };
 
-  const style = useMemo(() => {
-    const res: Record<string, object | string> = {};
-
-    // TODO: Recursive
-    for (const [key, value] of Object.entries(contextValue.theme)) {
-      if (typeof value === "object") {
-        for (const [subkey, subvalue] of Object.entries(value)) {
-          res["--" + key + "-" + subkey] = subvalue;
-        }
-      } else {
-        res["--" + key] = value;
-      }
-    }
-
-    return res as any;
-  }, [contextValue.theme]);
+  const style = useMemo(
+    () => parseCSSVars(contextValue.theme),
+    [contextValue.theme]
+  );
 
   return (
     <ThemeContext.Provider value={contextValue}>
