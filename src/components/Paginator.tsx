@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 
@@ -49,11 +50,11 @@ const Paginator = ({ current, count, onChange }: Props): JSX.Element => {
   return (
     <div className={classes.container}>
       <button disabled={isMin} onClick={() => safeOnChange(current - 1)}>
-        {"<"}
+        <FaArrowLeft />
       </button>
       <div className={classes.pages}>{buttons}</div>
       <button disabled={isMax} onClick={() => safeOnChange(current + 1)}>
-        {">"}
+        <FaArrowRight />
       </button>
     </div>
   );

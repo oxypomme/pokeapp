@@ -1,37 +1,36 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
+import { type QueryKey, useQuery } from "@tanstack/react-query";
 
-const useFetch = <D>(url: string, params?: Record<string, string | number>) => {
-  const [data, setData] = useState<D | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
-
+const useFetch = <TData, TError = Error>(
+  queryKey: QueryKey,
+  url: string,
+  config?: {
+    params?: Record<string, string | number>;
+    keepPreviousData?: boolean;
+  }
+) => {
   const parsedUrl = useMemo(() => {
     let u = url;
-    if (params) {
+    if (config?.params) {
       u +=
         "?" +
-        Object.entries(params)
+        Object.entries(config?.params)
           .map(([key, value]) => key + "=" + value)
           .join("&");
     }
     return u;
-  }, [url, params]);
+  }, [url, config?.params]);
 
-  useEffect(() => {
-    const handler = async () => {
-      setIsLoading(true);
-      try {
-        const res = await fetch(parsedUrl);
-        const d = await res.json();
-        setData(d);
-      } catch (error) {
-        setError(error as Error);
-      }
-      setIsLoading(false);
-    };
-    handler();
-  }, [parsedUrl]);
-  return { data, isLoading, error };
+  // TODO: Debounce or throttle
+
+  return useQuery<TData, TError>(
+    config?.params ? [...queryKey, config.params] : queryKey,
+    async () => {
+      const res = await fetch(parsedUrl);
+      return res.json();
+    },
+    { keepPreviousData: config?.keepPreviousData }
+  );
 };
 
 export default useFetch;

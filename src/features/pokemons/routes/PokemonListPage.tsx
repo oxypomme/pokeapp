@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import { FaBorderAll, FaSync, FaTable } from "react-icons/fa";
+import classNames from "classnames";
 
 import InputControl from "@/components/InputControl";
 import Paginator from "@/components/Paginator";
@@ -8,20 +10,21 @@ import type { Pokemon } from "..";
 import PokemonList from "../components/PokemonList";
 import PokemonTable from "../components/PokemonTable";
 
+import animations from "@/animations.module.scss";
+
 const PokemonCreationPage = (): JSX.Element => {
   const [search, setSearch] = useState("");
   const [limit, setLimit] = useState(15);
   const [page, setPage] = useState(1);
-  const [dataView, setDataView] = useState<"table" | "grid">("grid");
+  const [dataView, setDataView] = useState<"table" | "grid">("grid"); // TODO: URL
 
-  const { data, error, isLoading } = useFetch<{
+  const { data, error, isLoading, isFetching, refetch } = useFetch<{
     results: Pokemon[];
     count: number;
-  }>(
-    // TODO: Debounce or throttle
-    `https://pokeapi.fly.dev/oxypomme1222/pokemons`,
-    { limit, offset: limit * (page - 1), searchText: search }
-  );
+  }>(["pokemon-list"], `https://pokeapi.fly.dev/oxypomme1222/pokemons`, {
+    params: { limit, offset: limit * (page - 1), searchText: search },
+    keepPreviousData: true,
+  });
 
   // Clear page if searching or changing limit
   useEffect(() => {
@@ -63,9 +66,17 @@ const PokemonCreationPage = (): JSX.Element => {
         </div>
         <button
           style={{ textTransform: "capitalize" }}
+          title="Change display mode"
           onClick={() => handleDataViewChange()}
         >
-          {dataView}
+          {dataView === "grid" ? <FaBorderAll /> : <FaTable />}
+        </button>
+        <button
+          title="Reload data"
+          style={{ marginLeft: "1rem" }}
+          onClick={() => refetch()}
+        >
+          <FaSync className={classNames({ [animations.spin]: isFetching })} />
         </button>
       </div>
 

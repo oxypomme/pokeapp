@@ -35,7 +35,7 @@ const PokemonCard = ({ pokemon }: Props): JSX.Element => {
         ))}
       </ul>
       <div className={classes.actions}>
-        <Link to={`/pokemons/${pokemon.name}`}>
+        <Link to={`/pokemons/${pokemon.id}`}>
           <button>Details</button>
         </Link>
         <PokemonCaptureButton

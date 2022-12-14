@@ -1,3 +1,4 @@
+import { FaMoon, FaSun } from "react-icons/fa";
 import { NavLink, Route, Routes } from "react-router-dom";
 
 // eslint-disable-next-line import/no-unresolved
@@ -36,7 +37,9 @@ function App() {
             Collection (<PokemonCollectionCount />)
           </NavLink>
           <NavLink to="/pokemons/new">New pokemon</NavLink>
-          <button onClick={handlerTheme}>{currentTheme}</button>
+          <button onClick={handlerTheme}>
+            {currentTheme === "dark" ? <FaMoon /> : <FaSun />}
+          </button>
         </nav>
       </header>
 

@@ -1,58 +1,54 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import useMultipleFetch from "@/hooks/useMultipleFetch";
 
 import type { Pokemon } from "..";
 import PokemonList from "../components/PokemonList";
 import { usePokedexContext } from "../PokedexContext";
 
 const PokemonCapturedPage = (): JSX.Element => {
-  const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [error, setError] = useState<Error | null>(null);
-  const [loadingItems, setLoadingItems] = useState<number | undefined>(
-    undefined
-  );
-
   const { pokemonIds } = usePokedexContext();
 
+  const {
+    data: pokemons,
+    loadingCount,
+    error,
+    addQueries,
+    removeQueries,
+  } = useMultipleFetch<Pokemon, string>(
+    "pokemon-detail",
+    (id) => `https://pokeapi.fly.dev/oxypomme1222/pokemons/${id}`
+  );
+
+  // Parse ids into queries
   useEffect(() => {
-    const handler = async () => {
-      try {
-        const currIds = pokemons.map(({ id }) => id);
+    const currIds = pokemons.map(({ id }) => id);
 
-        if (currIds.length > pokemonIds.length) {
-          // If deletion
-          const idsToDelete = currIds.filter((id) => !pokemonIds.includes(id));
-          setPokemons(pokemons.filter(({ id }) => !idsToDelete.includes(id)));
-        }
+    if (currIds.length > pokemonIds.length) {
+      // If deletion
+      const idsToDelete = currIds
+        .filter((id) => !pokemonIds.includes(id))
+        .map((id) => id.toString());
+      removeQueries(idsToDelete);
+    }
 
-        if (currIds.length < pokemonIds.length) {
-          // If addition
-          const idsToAdd = pokemonIds.filter((id) => !currIds.includes(id));
-          setLoadingItems(idsToAdd.length);
-
-          const pokes = await Promise.all(
-            idsToAdd.map(async (id) => {
-              const res = await fetch(
-                `https://pokeapi.fly.dev/oxypomme1222/pokemons/${id}`
-              );
-              return res.json() as Promise<Pokemon>;
-            })
-          );
-
-          setPokemons([...pokemons, ...pokes]);
-        }
-      } catch (error) {
-        setError(error as Error);
-      }
-      setLoadingItems(undefined);
-    };
-    handler();
+    if (currIds.length < pokemonIds.length) {
+      // If addition
+      const idsToAdd = pokemonIds
+        .filter((id) => !currIds.includes(id))
+        .map((id) => id.toString());
+      addQueries(idsToAdd);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokemonIds]);
 
   return (
     <>
       {!error ? (
-        <PokemonList pokemons={pokemons} loadingItems={loadingItems} />
+        <PokemonList
+          pokemons={pokemons}
+          loadingItems={loadingCount || undefined}
+        />
       ) : (
         "Error: " + error.message
       )}
