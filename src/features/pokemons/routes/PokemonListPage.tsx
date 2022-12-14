@@ -1,48 +1,71 @@
 import { useEffect, useState } from "react";
 import { FaBorderAll, FaSync, FaTable } from "react-icons/fa";
+import { useSearchParams } from "react-router-dom";
 import classNames from "classnames";
 
 import InputControl from "@/components/InputControl";
 import Paginator from "@/components/Paginator";
-import useFetch from "@/hooks/useFetch";
 
 import type { Pokemon } from "..";
 import PokemonList from "../components/PokemonList";
 import PokemonTable from "../components/PokemonTable";
+import { useFetchPokemonList } from "../hooks/query";
 
 import animations from "@/animations.module.scss";
 
-const PokemonCreationPage = (): JSX.Element => {
-  const [search, setSearch] = useState("");
-  const [limit, setLimit] = useState(15);
-  const [page, setPage] = useState(1);
-  const [dataView, setDataView] = useState<"table" | "grid">("grid"); // TODO: URL
+type PokemonListView = "grid" | "table";
 
-  const { data, error, isLoading, isFetching, refetch } = useFetch<{
-    results: Pokemon[];
-    count: number;
-  }>(["pokemon-list"], `https://pokeapi.fly.dev/oxypomme1222/pokemons`, {
-    params: { limit, offset: limit * (page - 1), searchText: search },
-    keepPreviousData: true,
-  });
+const PokemonListPage = (): JSX.Element => {
+  const [limit, setLimit] = useState(15);
+
+  // Using search params as state
+  const [urlParams, setUrlParams] = useSearchParams();
+
+  const view = urlParams.get("view") ?? "grid";
+  const setView = (view: PokemonListView) =>
+    setUrlParams((p) => {
+      p.set("view", view);
+      return p;
+    });
+
+  const page = parseInt(urlParams.get("page") ?? "1");
+  const setPage = (v: number) =>
+    setUrlParams((p) => {
+      p.set("page", v.toString());
+      return p;
+    });
+
+  const search = urlParams.get("search") ?? "";
+  const setSearch = (v: string) =>
+    setUrlParams((p) => {
+      p.set("search", v);
+      return p;
+    });
 
   // Clear page if searching or changing limit
   useEffect(() => {
     setPage(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, limit]);
 
+  const { data, error, isLoading, isFetching, refetch } = useFetchPokemonList(
+    limit * (page - 1),
+    search,
+    limit
+  );
+
   const maxPage = Math.round((data?.count ?? 0) / limit);
-  const dataParams = {
+  const viewParams = {
     pokemons: !isLoading ? (data?.results as Pokemon[]) : [],
     loadingItems: isLoading ? limit : undefined,
   };
 
   const handleDataViewChange = () => {
-    if (dataView === "table") {
-      setDataView("grid");
-    } else {
-      setDataView("table");
+    let nextView: PokemonListView = "table";
+    if (view === "table") {
+      nextView = "grid";
     }
+    setView(nextView);
   };
 
   return (
@@ -69,7 +92,7 @@ const PokemonCreationPage = (): JSX.Element => {
           title="Change display mode"
           onClick={() => handleDataViewChange()}
         >
-          {dataView === "grid" ? <FaBorderAll /> : <FaTable />}
+          {view === "grid" ? <FaBorderAll /> : <FaTable />}
         </button>
         <button
           title="Reload data"
@@ -81,8 +104,8 @@ const PokemonCreationPage = (): JSX.Element => {
       </div>
 
       {!error ? (
-        (dataView === "grid" && <PokemonList {...dataParams} />) ||
-        (dataView === "table" && <PokemonTable {...dataParams} />)
+        (view === "grid" && <PokemonList {...viewParams} />) ||
+        (view === "table" && <PokemonTable {...viewParams} />)
       ) : (
         <>
           Error: <span style={{ color: "red" }}>{error.message}</span>
@@ -94,4 +117,4 @@ const PokemonCreationPage = (): JSX.Element => {
   );
 };
 
-export default PokemonCreationPage;
+export default PokemonListPage;

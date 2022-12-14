@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 
-import useMultipleFetch from "@/hooks/useMultipleFetch";
-
-import type { Pokemon } from "..";
 import PokemonList from "../components/PokemonList";
+import { useMultipleFetchPokemon } from "../hooks/query";
 import { usePokedexContext } from "../PokedexContext";
 
 const PokemonCapturedPage = (): JSX.Element => {
@@ -15,10 +13,7 @@ const PokemonCapturedPage = (): JSX.Element => {
     error,
     addQueries,
     removeQueries,
-  } = useMultipleFetch<Pokemon, string>(
-    "pokemon-detail",
-    (id) => `https://pokeapi.fly.dev/oxypomme1222/pokemons/${id}`
-  );
+  } = useMultipleFetchPokemon();
 
   // Parse ids into queries
   useEffect(() => {

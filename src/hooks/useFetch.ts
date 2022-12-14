@@ -24,12 +24,16 @@ const useFetch = <TData, TError = Error>(
   // TODO: Debounce or throttle
 
   return useQuery<TData, TError>(
-    config?.params ? [...queryKey, config.params] : queryKey,
+    queryKey,
     async () => {
       const res = await fetch(parsedUrl);
       return res.json();
     },
-    { keepPreviousData: config?.keepPreviousData }
+    {
+      keepPreviousData: config?.keepPreviousData,
+      staleTime: 15 * 1000,
+      cacheTime: 60 * 1000,
+    }
   );
 };
 

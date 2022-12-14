@@ -3,17 +3,12 @@ import PropTypes from "prop-types";
 
 import InputControl from "@/components/InputControl";
 
+import { InputPokemon } from "..";
+
 import classes from "./PokemonForm.module.scss";
 
-type Payload = {
-  name: string;
-  type: string;
-  height?: number;
-  weight?: number;
-};
-
 type Props = React.PropsWithoutRef<{
-  onSubmit(payload: Payload): void;
+  onSubmit(payload: InputPokemon): void;
 }>;
 
 const PokemonForm = ({ onSubmit }: Props): JSX.Element => {

@@ -37,3 +37,10 @@ export type Pokemon = {
     speed: number;
   };
 };
+
+export type InputPokemon = {
+  name: string;
+  type: string;
+  height?: number;
+  weight?: number;
+};

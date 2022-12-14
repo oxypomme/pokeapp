@@ -7,17 +7,15 @@ import useFetch from "@/hooks/useFetch";
 import type { Pokemon } from "..";
 import PokemonDetails from "../components/PokemonDetails";
 import PokemonDetailsLoading from "../components/PokemonDetailsLoading";
+import { useFetchPokemon } from "../hooks/query";
 
 import animations from "@/animations.module.scss";
 
 const PokemonDetailsPage = (): JSX.Element => {
   const { name: nameOrId } = useParams();
 
-  const { data, isLoading, error, isFetching, refetch } = useFetch<Pokemon>(
-    ["pokemon-detail", nameOrId],
-    `https://pokeapi.fly.dev/oxypomme1222/pokemons/${
-      nameOrId?.toLowerCase() ?? "undefined"
-    }`
+  const { data, isLoading, error, isFetching, refetch } = useFetchPokemon(
+    nameOrId ?? "undefined"
   );
 
   return (
