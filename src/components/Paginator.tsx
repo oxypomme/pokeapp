@@ -11,8 +11,9 @@ type Props = React.PropsWithoutRef<{
 }>;
 
 const Paginator = ({ current, count, onChange }: Props): JSX.Element => {
-  const isMin = useMemo(() => current <= 1, [current]);
-  const isMax = useMemo(() => current >= count, [current, count]);
+  const isMin = current <= 1;
+  const isMax = current >= count;
+
   const safeOnChange = useCallback(
     (value: number) =>
       value > 0 && value <= count ? onChange(value) : undefined,

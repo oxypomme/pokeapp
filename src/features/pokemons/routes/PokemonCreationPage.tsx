@@ -1,4 +1,4 @@
-import PokemonForm from "@/features/pokemons/components/PokemonForm";
+import PokemonForm from "../components/PokemonForm";
 
 const PokemonCreationPage = (): JSX.Element => {
   const onSubmit = (payload: any) => console.log(payload);

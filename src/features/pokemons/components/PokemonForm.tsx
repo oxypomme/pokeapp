@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 
 import InputControl from "@/components/InputControl";
@@ -22,7 +22,7 @@ const PokemonForm = ({ onSubmit }: Props): JSX.Element => {
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
 
-  const isValid = useMemo(() => name && type, [name, type]);
+  const isValid = name && type;
 
   const onBaseSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

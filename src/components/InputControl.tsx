@@ -1,5 +1,3 @@
-import { useMemo } from "react";
-
 import classes from "./InputControl.module.scss";
 
 type Props = {
@@ -9,7 +7,7 @@ type Props = {
 const RequiredStar = (): JSX.Element => <span style={{ color: "red" }}>*</span>;
 
 const InputControl = ({ label, id, ...inputProps }: Props): JSX.Element => {
-  const inputId = useMemo(() => id ?? label.toLowerCase(), [id, label]);
+  const inputId = id ?? label.toLowerCase();
 
   return (
     <div className={classes.container}>

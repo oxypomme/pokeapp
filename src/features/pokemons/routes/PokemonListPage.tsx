@@ -2,10 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 
 import InputControl from "@/components/InputControl";
 import Paginator from "@/components/Paginator";
-import type { Pokemon } from "@/features/pokemons";
-import PokemonList from "@/features/pokemons/components/PokemonList";
-import PokemonTable from "@/features/pokemons/components/PokemonTable";
 import useFetch from "@/hooks/useFetch";
+
+import type { Pokemon } from "..";
+import PokemonList from "../components/PokemonList";
+import PokemonTable from "../components/PokemonTable";
 
 const PokemonCreationPage = (): JSX.Element => {
   const [search, setSearch] = useState("");
@@ -27,18 +28,11 @@ const PokemonCreationPage = (): JSX.Element => {
     setPage(1);
   }, [search, limit]);
 
-  const maxPage = useMemo(
-    () => Math.round((data?.count ?? 0) / limit),
-    [data, limit]
-  );
-
-  const dataParams = useMemo(
-    () => ({
-      pokemons: !isLoading ? (data?.results as Pokemon[]) : [],
-      loadingItems: isLoading ? limit : undefined,
-    }),
-    [data?.results, isLoading, limit]
-  );
+  const maxPage = Math.round((data?.count ?? 0) / limit);
+  const dataParams = {
+    pokemons: !isLoading ? (data?.results as Pokemon[]) : [],
+    loadingItems: isLoading ? limit : undefined,
+  };
 
   const handleDataViewChange = () => {
     if (dataView === "table") {

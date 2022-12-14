@@ -70,11 +70,7 @@ const PokemonTypeChip = ({ type }: Props) => {
         return "#67998c";
     }
   }, [type]);
-  const icon = useMemo(
-    () =>
-      `https://duiker101.github.io/pokemon-type-svg-icons/icons/${type}.svg`,
-    [type]
-  );
+  const icon = `https://duiker101.github.io/pokemon-type-svg-icons/icons/${type}.svg`;
 
   return (
     <div className={classes.chip} style={{ background: color }}>

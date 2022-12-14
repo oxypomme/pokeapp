@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
 
-import PokemonDetails from "@/features/pokemons/components/PokemonDetails";
-import PokemonDetailsLoading from "@/features/pokemons/components/PokemonDetailsLoading";
 import useFetch from "@/hooks/useFetch";
 
-import type { Pokemon } from "../features/pokemons";
+import type { Pokemon } from "..";
+import PokemonDetails from "../components/PokemonDetails";
+import PokemonDetailsLoading from "../components/PokemonDetailsLoading";
 
 const PokemonDetailsPage = (): JSX.Element => {
   const { name: nameOrId } = useParams();

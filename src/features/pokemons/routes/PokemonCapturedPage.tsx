@@ -1,9 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
-import PokemonList from "@/features/pokemons/components/PokemonList";
-import { usePokedexContext } from "@/features/pokemons/PokedexContext";
-
-import type { Pokemon } from "../features/pokemons";
+import type { Pokemon } from "..";
+import PokemonList from "../components/PokemonList";
+import { usePokedexContext } from "../PokedexContext";
 
 const PokemonCapturedPage = (): JSX.Element => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -14,29 +13,40 @@ const PokemonCapturedPage = (): JSX.Element => {
 
   const { pokemonIds } = usePokedexContext();
 
-  const currIds = useMemo(() => pokemons.map(({ id }) => id), [pokemons]);
-
   useEffect(() => {
     const handler = async () => {
       try {
-        const ids = pokemonIds.filter((id) => !currIds.includes(id));
-        setLoadingItems(ids.length);
+        const currIds = pokemons.map(({ id }) => id);
 
-        const pokes = await Promise.all(
-          ids.map(async (id) => {
-            const res = await fetch(
-              `https://pokeapi.fly.dev/oxypomme1222/pokemons/${id}`
-            );
-            return res.json() as Promise<Pokemon>;
-          })
-        );
-        setPokemons(pokes);
+        if (currIds.length > pokemonIds.length) {
+          // If deletion
+          const idsToDelete = currIds.filter((id) => !pokemonIds.includes(id));
+          setPokemons(pokemons.filter(({ id }) => !idsToDelete.includes(id)));
+        }
+
+        if (currIds.length < pokemonIds.length) {
+          // If addition
+          const idsToAdd = pokemonIds.filter((id) => !currIds.includes(id));
+          setLoadingItems(idsToAdd.length);
+
+          const pokes = await Promise.all(
+            idsToAdd.map(async (id) => {
+              const res = await fetch(
+                `https://pokeapi.fly.dev/oxypomme1222/pokemons/${id}`
+              );
+              return res.json() as Promise<Pokemon>;
+            })
+          );
+
+          setPokemons([...pokemons, ...pokes]);
+        }
       } catch (error) {
         setError(error as Error);
       }
       setLoadingItems(undefined);
     };
     handler();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokemonIds]);
 
   return (
